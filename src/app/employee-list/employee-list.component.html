@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row" style="margin-bottom: 30px;">
+    <div class="offset-9 col-1">
+      <button class="btn btn-primary pull-right" (click)="open()">Add Employee</button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary pull-right" (click)="showFilter = !showFilter;">Add Filter <i class="fa fa-filter" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-hover table-striped table-custom mt-10">
+        <thead class="thead-custom">
+        <tr>
+          <th>#</th>
+          <th>First name</th>
+          <th (click)="sortByFlag = !sortByFlag; sortBy()">Last name <span><i class="fa fa-arrow-{{sortByFlag ? 'up': 'down'}}" aria-hidden="true"></i></span></th>
+          <th>Department</th>
+          <th>Contact number</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr [hidden]="!showFilter">
+          <th></th>
+          <td>
+            <input type="text" #searchByFirstName
+                   style="width:200px;"
+                   class="form-control"
+                   id="searchByFirstName"
+                   (keyup.enter)="filter(searchByFirstName.value, searchByLastName.value, searchByDepartment.value);"
+                   placeholder="Search by first name">
+          </td>
+          <td>
+            <input type="text" #searchByLastName
+                   style="width:200px;"
+                   class="form-control"
+                   id="searchByLastName"
+                   (keyup.enter)="filter(searchByFirstName.value, searchByLastName.value, searchByDepartment.value);"
+                   placeholder="Search by last name">
+          </td>
+          <td>
+            <input type="text" #searchByDepartment
+                   style="width:200px;"
+                   class="form-control"
+                   id="searchByDepartment"
+                   (keyup.enter)="filter(searchByFirstName.value, searchByLastName.value, searchByDepartment.value);"
+                   placeholder="Search by department">
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let employee of employeeList">
+          <th scope="row">{{employee.id}}</th>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.department}}</td>
+          <td>{{employee.contactNumber}}</td>
+          <td><span><i class="fa fa-trash" aria-hidden="true" title="Delete" (click)="delete(employee.id, employee)"></i></span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
